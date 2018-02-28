@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.caelum.ingresso.dao.FilmeDao;
 import br.com.caelum.ingresso.dao.SalaDao;
+import br.com.caelum.ingresso.dao.SessaoDao;
 import br.com.caelum.ingresso.model.Sessao;
 import br.com.caelum.ingresso.model.form.SessaoForm;
 
@@ -21,6 +22,9 @@ public class SessaoController {
 
 	@Autowired
 	private SalaDao salaDao;
+	
+	@Autowired
+	private SessaoDao sessaoDao;
 
 	@Autowired
 	private FilmeDao filmeDao;
@@ -39,6 +43,7 @@ public class SessaoController {
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result){
 		if(result.hasErrors()) return form(form.getSalaId(), form);
 		Sessao sessao = form.toSessao(salaDao, filmeDao);
+		sessaoDao.save(sessao);
 		return new ModelAndView("redirect:/admin/sala/" + form.getSalaId() + "/sessoes");
 	}
 
