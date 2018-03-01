@@ -35,6 +35,7 @@ public class SessaoController {
 		ModelAndView mav = new ModelAndView("sessao/sessao");
 		mav.addObject("salas", salaDao.findOne(salaId));
 		mav.addObject("filmes", filmeDao.findAll());
+		mav.addObject("form", form);
 		return mav;
 	}
 	
